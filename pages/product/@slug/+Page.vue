@@ -41,7 +41,7 @@
             <span class="label-text font-medium">联系邮箱 <span class="text-error">*</span></span>
             <input v-model="form.contactValue" type="email" class="input input-bordered w-full" placeholder="name@example.com" />
           </label>
-          <p class="-mt-2 text-xs text-base-content/60">必填，自动发货和售后联系都会发送到这个邮箱。</p>
+          <p class="-mt-2 text-xs text-base-content/60">自动发货和售后联系都会发送到这个邮箱。</p>
 
           <label class="flex flex-col gap-1.5">
             <span class="label-text font-medium">购买数量</span>
@@ -55,7 +55,7 @@
                 v-model="form.discountCode" 
                 type="text" 
                 class="input input-bordered flex-1" 
-                placeholder="输入折扣码（可选）"
+                placeholder="输入折扣码（没有就留空不用填）"
                 :disabled="discountPreview.loading"
               />
               <button 
@@ -78,7 +78,7 @@
 
           <label class="flex flex-col gap-1.5">
             <span class="label-text font-medium">备注</span>
-            <textarea v-model="form.buyerNote" class="textarea textarea-bordered w-full" rows="3" placeholder="可以留下QQ号、微信等联系方式"></textarea>
+            <textarea v-model="form.buyerNote" class="textarea textarea-bordered w-full" rows="3" placeholder="可留下QQ/微信联系方式，没有就留空不填"></textarea>
           </label>
 
           <div v-if="!isFreeOrder" class="space-y-2">
@@ -137,7 +137,7 @@
           <p v-if="product.deliveryType === 'CARD_AUTO' && product.availableStock >= 0 && product.availableStock < 10" class="text-sm" :class="product.availableStock === 0 ? 'text-error' : 'text-warning'">
             {{ product.availableStock === 0 ? '商品都卖光了，看看其他商品' : `库存紧张，仅剩 ${product.availableStock} 件` }}
           </p>
-          <p v-else-if="product.deliveryType === 'FIXED_CARD'" class="text-sm text-success">自动发货，库存充足。</p>
+          <p v-else-if="product.deliveryType === 'FIXED_CARD'" class="text-sm text-success">24小时自动发货，库存充足。</p>
           <p v-else-if="product.deliveryType === 'MANUAL'" class="text-sm" :class="product.availableStock === 0 ? 'text-error' : product.availableStock > 0 && product.availableStock < 10 ? 'text-warning' : 'text-success'">
             {{ product.availableStock === 0 ? '商品都卖光了，看看其他商品' : product.availableStock > 0 && product.availableStock < 10 ? `库存紧张，仅剩 ${product.availableStock} 件` : (product.manualDeliveryHint || '支付后，客服将尽快为您处理订单，请耐心等待。') }}
           </p>
